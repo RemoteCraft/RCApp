@@ -8,12 +8,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 public class SensorMotion extends SensorBasic {
-	private Sensor accelerometer;
+    private Sensor accelerometer;
     private Sensor magnetic;
     private float[] trueacceleration = new float[4];
 
-
-	public SensorMotion(Context _context){
+    public SensorMotion(Context _context){
         context = _context;
 		mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 		accelerometer = mSensorManager
