@@ -7,20 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import jzl.remotecraft.sensor.R;
-import jzl.remotecraft.sensor.ui.fragment.personal.dummy.DummyContent;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BaseFragment.OnFragmentInteractionListener} interface
+ * {@link MonitorFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BaseFragment#newInstance} factory method to
+ * Use the {@link MonitorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BaseFragment extends Fragment {
+public class MonitorFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +30,7 @@ public class BaseFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public BaseFragment() {
+    public MonitorFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +40,11 @@ public class BaseFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BaseFragment.
+     * @return A new instance of fragment MonitorFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BaseFragment newInstance(String param1, String param2) {
-        BaseFragment fragment = new BaseFragment();
+    public static MonitorFragment newInstance(String param1, String param2) {
+        MonitorFragment fragment = new MonitorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,9 +64,8 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_monitor, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,34 +92,4 @@ public class BaseFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyContent.DummyItem item);
-    }
 }

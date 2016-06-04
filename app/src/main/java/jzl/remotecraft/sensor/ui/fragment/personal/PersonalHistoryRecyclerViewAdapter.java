@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import jzl.remotecraft.sensor.R;
-import jzl.remotecraft.sensor.ui.fragment.personal.HistoryFragment.OnListFragmentInteractionListener;
+import jzl.remotecraft.sensor.ui.fragment.BaseFragment.OnListFragmentInteractionListener;
 import jzl.remotecraft.sensor.ui.fragment.personal.dummy.DummyContent.DummyItem;
 
 import java.util.List;

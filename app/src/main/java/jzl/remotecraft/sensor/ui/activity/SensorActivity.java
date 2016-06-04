@@ -1,7 +1,12 @@
 package jzl.remotecraft.sensor.ui.activity;
 
+import android.content.res.TypedArray;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +24,26 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import jzl.remotecraft.sensor.R;
+import jzl.remotecraft.sensor.model.entity.NavDrawerItem;
+import jzl.remotecraft.sensor.ui.adapter.NavDrawerListAdapter;
+import jzl.remotecraft.sensor.ui.fragment.BaseFragment;
+import jzl.remotecraft.sensor.ui.fragment.MainFragment;
+import jzl.remotecraft.sensor.ui.fragment.MonitorFragment;
+import jzl.remotecraft.sensor.ui.fragment.PersonalFragment;
+import jzl.remotecraft.sensor.util.Common.Common;
+import jzl.remotecraft.sensor.util.Common.LogUtil;
 
-public class SensorActivity extends AppCompatActivity {
+public class SensorActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,11 +54,19 @@ public class SensorActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ListView mDrawerMenu;
+    private String[] mNavMenuTitles;
+    private TypedArray mNavMenuIconsTypeArray;
+    private TypedArray mNavMenuIconTintTypeArray;
+    private ArrayList<NavDrawerItem> mNavDrawerItems;
+    private NavDrawerListAdapter mAdapter;
+    private int position;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+
+    private DrawerLayout drawerLayout;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +75,12 @@ public class SensorActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Display the menu button on the left of the toolbar
+        setupToolbar(getSupportActionBar());
+        setUpDrawer();
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        if(mSectionsPagerAdapter != null)
-            mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -71,6 +95,10 @@ public class SensorActivity extends AppCompatActivity {
 
     }
 
+    private void setupToolbar(final ActionBar ab) {
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
+    }
     //Mandate to hide physical menu button to enable overflow all the time
     private void setOverflowShowingAlways() {
         try {
@@ -82,6 +110,58 @@ public class SensorActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void setUpDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawerLayout == null) {
+            // current activity does not have a drawer.
+            return;
+        }
+        mDrawerMenu = (ListView) findViewById(R.id.left_menu);
+        mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        // nav drawer icons from resources
+        mNavMenuIconsTypeArray = getResources()
+                .obtainTypedArray(R.array.nav_drawer_icons);
+        mNavMenuIconTintTypeArray = getResources()
+                .obtainTypedArray(R.array.nav_drawer_tint);
+        mNavDrawerItems = new ArrayList<NavDrawerItem>();
+        for (int i = 0; i < mNavMenuTitles.length; i++) {
+            mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[i], mNavMenuIconsTypeArray
+                    .getResourceId(i, -1), mNavMenuIconTintTypeArray.getResourceId(i, -1)));
+        }
+        mNavMenuIconsTypeArray.recycle();
+        // setting the nav drawer list adapter
+        mAdapter = new NavDrawerListAdapter(this,
+                mNavDrawerItems);
+        mDrawerMenu.setAdapter(mAdapter);
+        mDrawerMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!Common.isEmpty(mNavDrawerItems, i)) {
+                    NavDrawerItem navDrawerItem = mNavDrawerItems.get(i);
+                    if (navDrawerItem != null) {
+                        selectItem(i, navDrawerItem.getTitle());
+                    }
+                }
+            }
+        });
+
+
+        selectItem(0, mNavDrawerItems.get(0).getTitle());
+    }
+
+    protected void openDrawer() {
+        if (drawerLayout == null)
+            return;
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    protected void closeDrawer() {
+        if (drawerLayout == null)
+            return;
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,10 +175,15 @@ public class SensorActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id) {
+            case android.R.id.home:
+                openDrawer();
+                return true;
+            //noinspection SimplifiableIfStatement
+            case R.id.action_settings:
+                Bundle extras = new Bundle();
+                extras.putString("key", "value");
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -190,5 +275,59 @@ public class SensorActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+    /**
+     * 左侧drawer选择事件
+     *
+     * @param position
+     * @param title
+     */
+    public void selectItem(int position, String title) {
+        Fragment fragment = null;
+        this.position = position;
+        switch (position) {
+            case 0:
+                //首页
+                fragment = new MainFragment();
+                break;
+            case 1:
+                //个人
+                fragment = new PersonalFragment();
+                break;
+            case 2:
+                //传感器
+                fragment = new MonitorFragment();
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content, fragment).commit();
+            setTitle(title);
+            closeDrawer();
+        } else {
+            LogUtil.e("HomeActivity", "Error in creating fragment");
+        }
+    }
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            closeDrawer();
+            return;
+        }
+
+        if (position != 0) {
+            selectItem(0, mNavDrawerItems.get(0).getTitle());
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+    public void onFragmentInteraction(Uri uri){
+
     }
 }

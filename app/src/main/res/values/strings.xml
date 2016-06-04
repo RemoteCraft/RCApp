@@ -6,4 +6,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_desc">你好啊</string>
+    <string name="drawer_change_theme">兄贵</string>
+    <string name="drawer_setting">韩元元分居吗掏粪好时候</string>
+
+    <string name="drawer_home">首页</string>
+    <string name="drawer_explore">发现</string>
+    <string name="drawer_follow">关注</string>
+    <string name="drawer_collect">收藏</string>
+    <string name="drawer_draft">草稿</string>
+    <string name="drawer_question">提问</string>
 </resources>
