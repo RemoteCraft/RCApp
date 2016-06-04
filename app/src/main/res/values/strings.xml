@@ -16,4 +16,5 @@
     <string name="drawer_collect">收藏</string>
     <string name="drawer_draft">草稿</string>
     <string name="drawer_question">提问</string>
+    <string name="lorem_ipsum">哲学</string>
 </resources>
