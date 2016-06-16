@@ -17,4 +17,10 @@
     <string name="drawer_draft">草稿</string>
     <string name="drawer_question">提问</string>
     <string name="lorem_ipsum">哲学</string>
+
+    <string name="common_error_msg">这样我岂不是很没面子?</string>
+    <string name="common_no_network_msg">没网你玩个蛋蛋</string>
+
+    <string name="common_empty_msg">这是一条可爱的信息</string>
+    <string name="common_loading_message">正在加油</string>
 </resources>

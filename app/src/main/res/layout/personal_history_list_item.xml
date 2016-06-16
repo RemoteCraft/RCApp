@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_margin"
+    android:layout_marginLeft="@dimen/card_margin"
+    android:layout_marginRight="@dimen/card_margin">
+
+    <LinearLayout
+        style="@style/Widget.CardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/personal_history_list_item_tag_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="2dp"
+            android:text="热门问答"
+            android:textColor="@color/tag_text_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/personal_history_list_item_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="5dp"
+            android:text=""
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/personal_history_list_item_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingTop="85dp">
+
+        <TextView
+            android:id="@+id/personal_history_list_item_little_button"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/num_text_bg"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/num_text_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/personal_history_list_item_little_button_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text=""
+            android:textColor="@color/content_text_color"
+            android:lineSpacingExtra="5dp"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

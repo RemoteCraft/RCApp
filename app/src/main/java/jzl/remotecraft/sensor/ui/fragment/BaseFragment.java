@@ -3,72 +3,102 @@ package jzl.remotecraft.sensor.ui.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import jzl.remotecraft.sensor.R;
 import jzl.remotecraft.sensor.ui.fragment.personal.dummy.DummyContent;
+import jzl.remotecraft.sensor.ui.view.BaseView;
+import jzl.remotecraft.sensor.util.common.widget.VaryViewHelperController;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link BaseFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BaseFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class BaseFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class BaseFragment extends Fragment implements BaseView{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    protected VaryViewHelperController mVaryViewHelperController;
+    protected float mScreenDensity;
+    protected int mScreenHeight;
+    protected int mScreenWidth;
+    protected Context mContext = null;
+    protected FloatingActionButton fab = null;
+    public String TITLE = "DEFAULT";
 
     public BaseFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BaseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BaseFragment newInstance(String param1, String param2) {
-        BaseFragment fragment = new BaseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void showLoading(String msg) {
+        toggleShowLoading(true,msg);
+    }
+
+    @Override
+    public void hideLoading() {
+        toggleShowLoading(false,"");
+    }
+
+    @Override
+    public void showError(String msg, View.OnClickListener onClickListener) {
+
+    }
+
+    @Override
+    public void showEmpty(String msg, View.OnClickListener onClickListener) {
+        toggleShowEmpty(true, msg, onClickListener);
+    }
+
+    @Override
+    public void showEmpty(String msg, View.OnClickListener onClickListener, int imageId) {
+        toggleShowEmpty(true, msg, onClickListener, imageId);
+    }
+
+    @Override
+    public void showNetError(View.OnClickListener onClickListener) {
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        if (getContentViewLayoutID() != 0) {
+            return inflater.inflate(getContentViewLayoutID(), null);
+        } else {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (null != getLoadingTargetView()) {
+            mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
+        }
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        mScreenDensity = displayMetrics.density;
+        mScreenHeight = displayMetrics.heightPixels;
+        mScreenWidth = displayMetrics.widthPixels;
+
+        init();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -81,6 +111,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mContext = context;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -124,5 +155,87 @@ public class BaseFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(DummyContent.DummyItem item);
+    }
+
+    /**
+     * bind layout resource file
+     *
+     * @return id of layout resource
+     */
+    protected int getContentViewLayoutID(){return 0;}
+
+    protected View getLoadingTargetView(){return null;}
+
+    protected void init(){}
+
+    /**
+     * get the support fragment manager
+     *
+     * @return
+     */
+    protected FragmentManager getSupportFragmentManager() {
+        return getActivity().getSupportFragmentManager();
+    }
+
+    public void setFab(FloatingActionButton fab){this.fab = fab;}
+
+    protected void toggleShowLoading(boolean toggle, String msg) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showLoading(msg);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleShowEmpty(boolean toggle, String msg, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showEmpty(msg, onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleShowEmpty(boolean toggle, String msg, View.OnClickListener onClickListener, int img) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showEmpty(msg, onClickListener, img);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleShowError(boolean toggle, String msg, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showError(msg, onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleNetworkError(boolean toggle, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showNetworkError(onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
     }
 }

@@ -1,11 +1,4 @@
-package jzl.remotecraft.sensor.util.Common;
-
-import android.util.Pair;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+package jzl.remotecraft.sensor.util.common;
 
 
 /**

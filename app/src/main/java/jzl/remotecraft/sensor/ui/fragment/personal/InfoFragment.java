@@ -26,6 +26,7 @@ public class InfoFragment extends BaseFragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    public String TITLE = "MyInfo";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,19 +57,9 @@ public class InfoFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_personal_history_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_personal_info, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new PersonalHistoryRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+
         return view;
     }
 

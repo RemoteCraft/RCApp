@@ -19,12 +19,12 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/explore_pager_tabs"
+                android:id="@+id/personal_pager_tabs"
                 style="@style/tabLayoutStyle" />
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/explore_pager"
+            android:id="@+id/personal_pager"
             style="@style/pagerStyle"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".ui.activity.MainActivity" />

@@ -31,4 +31,13 @@
 
     </array>
 
+    <array name="gplus_colors">
+        <item>@color/drawer_home_coclor</item>
+        <item>@color/drawer_explore_coclor</item>
+        <item>@color/drawer_follow_coclor</item>
+        <item>@color/drawer_collect_coclor</item>
+        <item>@color/drawer_draft_coclor</item>
+        <item>@color/drawer_question_coclor</item>
+    </array>
+
 </resources>

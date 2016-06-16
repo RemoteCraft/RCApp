@@ -13,9 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +23,6 @@ import android.view.ViewGroup;
 
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,8 +37,8 @@ import jzl.remotecraft.sensor.ui.fragment.BaseFragment;
 import jzl.remotecraft.sensor.ui.fragment.MainFragment;
 import jzl.remotecraft.sensor.ui.fragment.MonitorFragment;
 import jzl.remotecraft.sensor.ui.fragment.PersonalFragment;
-import jzl.remotecraft.sensor.util.Common.Common;
-import jzl.remotecraft.sensor.util.Common.LogUtil;
+import jzl.remotecraft.sensor.util.common.Common;
+import jzl.remotecraft.sensor.util.common.LogUtil;
 
 public class SensorActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener{
 

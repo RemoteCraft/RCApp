@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <jzl.remotecraft.sensor.util.common.widget.view.hao.HaoRecyclerView
             android:id="@+id/personal_history_recycleview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
