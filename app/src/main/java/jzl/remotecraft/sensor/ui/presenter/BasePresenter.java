@@ -1,5 +1,7 @@
 package jzl.remotecraft.sensor.ui.presenter;
 
+import java.util.ArrayList;
+
 import jzl.remotecraft.sensor.ui.view.BaseView;
 import jzl.remotecraft.sensor.util.prototype.observer.Observer;
 
@@ -11,7 +13,7 @@ import jzl.remotecraft.sensor.util.prototype.observer.Observer;
  * attachView() and detachView(). It also handles keeping a reference to the mvpView that
  * can be accessed from the children classes by calling getMvpView().
  */
-public class BasePresenter<T extends BaseView> extends Observer<String[]> implements IPresenter<T> {
+public class BasePresenter<T extends BaseView> extends Observer<ArrayList<String>> implements IPresenter<T> {
 
     private T mMvpView;
 

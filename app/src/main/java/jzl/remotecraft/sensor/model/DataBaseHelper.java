@@ -40,9 +40,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return sqliteDataBase;
 	}
 
-	public static ArrayList<String> query(String tlb,String[] columns,String where){
+	public static ArrayList<String> query(String tlb,String column,String where){
 		Cursor cursor = null;
 		try{
+			String[] columns = column.split(",");
 			ArrayList<String> data = new ArrayList<String>();
 			cursor = sqliteDataBase.query(tlb,columns,where,null,null,null,null);
 			boolean have = cursor.moveToFirst();
