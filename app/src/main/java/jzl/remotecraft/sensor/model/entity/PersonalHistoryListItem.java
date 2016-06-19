@@ -1,9 +1,11 @@
 package jzl.remotecraft.sensor.model.entity;
 
+import android.app.LauncherActivity;
+
 /**
  * Created by jzl on 2016/6/10.
  */
-public class PersonalHistoryList extends List{
+public class PersonalHistoryListItem extends ListItem {
     public String getTag(){
         return "tag";
     }

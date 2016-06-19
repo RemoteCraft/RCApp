@@ -22,7 +22,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 
-public class AsyncWebService {
+import jzl.remotecraft.sensor.util.prototype.observer.Subject;
+
+public class AsyncWebService extends Subject<String[]> {
 	private final int GET = 0x00;
 	private final int POST = 0x01;
 	private Handler handler = null;

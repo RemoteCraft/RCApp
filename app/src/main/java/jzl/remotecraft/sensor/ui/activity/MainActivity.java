@@ -35,12 +35,12 @@ import jzl.remotecraft.sensor.model.entity.NavDrawerItem;
 import jzl.remotecraft.sensor.ui.adapter.NavDrawerListAdapter;
 import jzl.remotecraft.sensor.ui.fragment.BaseFragment;
 import jzl.remotecraft.sensor.ui.fragment.MainFragment;
-import jzl.remotecraft.sensor.ui.fragment.MonitorFragment;
+import jzl.remotecraft.sensor.ui.fragment.SensorFragment;
 import jzl.remotecraft.sensor.ui.fragment.PersonalFragment;
 import jzl.remotecraft.sensor.util.common.Common;
 import jzl.remotecraft.sensor.util.common.LogUtil;
 
-public class SensorActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -293,7 +293,7 @@ public class SensorActivity extends AppCompatActivity implements BaseFragment.On
                 break;
             case 2:
                 //传感器
-                fragment = new MonitorFragment();
+                fragment = new SensorFragment();
                 break;
             default:
                 break;

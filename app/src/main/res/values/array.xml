@@ -10,7 +10,6 @@
         <item>@string/drawer_question</item>
     </string-array>
 
-    <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_drawer_home_pressed</item>

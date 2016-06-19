@@ -12,8 +12,6 @@
     <dimen name="nav_header_height">160dp</dimen>
 
 
-
-
     <dimen name="list_item_article_thumbnail">48dp</dimen>
     <dimen name="list_item_artile_vertical_margin">4dp</dimen>
     <dimen name="list_item_article_space">8dp</dimen>

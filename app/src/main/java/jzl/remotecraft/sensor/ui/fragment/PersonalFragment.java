@@ -20,13 +20,11 @@ import jzl.remotecraft.sensor.ui.fragment.personal.InfoFragment;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PersonalFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
 public class PersonalFragment extends BaseFragment {
 
 
-    private OnFragmentInteractionListener mListener;
     private LinearLayout personal_content = null;
     private TabLayout personal_pager_tabs = null;
     private ViewPager personal_pager = null;
@@ -82,29 +80,15 @@ public class PersonalFragment extends BaseFragment {
         personal_fab = (FloatingActionButton)view.findViewById(R.id.personal_fab);
         return view;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
+    protected View getLoadingTargetView(){return personal_content;}
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
     
 }

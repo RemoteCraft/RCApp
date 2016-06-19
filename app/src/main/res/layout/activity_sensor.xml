@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.activity.SensorActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"

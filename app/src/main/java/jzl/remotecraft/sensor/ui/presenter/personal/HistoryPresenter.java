@@ -34,6 +34,11 @@ public class HistoryPresenter extends BasePresenter<HistoryListView> {
     }
 
 
+    @Override
+    protected void update(String[] data) {
+
+    }
+
     public void loadList(final int page) {
         checkViewAttached();
 

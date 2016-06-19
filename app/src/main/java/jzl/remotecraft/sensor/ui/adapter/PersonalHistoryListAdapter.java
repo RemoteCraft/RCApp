@@ -1,7 +1,6 @@
 package jzl.remotecraft.sensor.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +10,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import jzl.remotecraft.sensor.R;
-import jzl.remotecraft.sensor.model.entity.PersonalHistoryList;
+import jzl.remotecraft.sensor.model.entity.PersonalHistoryListItem;
 
 /**
  * Created by jzl on 2016/6/10.
  */
 public class PersonalHistoryListAdapter extends RecyclerView.Adapter<PersonalHistoryListAdapter.ViewHolder> {
-    public ArrayList<PersonalHistoryList> datas = null;
+    public ArrayList<PersonalHistoryListItem> datas = null;
 
     Context context;
 
-    public PersonalHistoryListAdapter(Context context, ArrayList<PersonalHistoryList> datas) {
+    public PersonalHistoryListAdapter(Context context, ArrayList<PersonalHistoryListItem> datas) {
         this.context = context;
         this.datas = datas;
     }
@@ -46,7 +45,7 @@ public class PersonalHistoryListAdapter extends RecyclerView.Adapter<PersonalHis
             }
         });
 
-        PersonalHistoryList bean = datas.get(position);
+        PersonalHistoryListItem bean = datas.get(position);
         viewHolder.tag_text.setText(bean.getTag());
         viewHolder.title_text.setText(bean.getTitle());
         viewHolder.little_button_text.setText(bean.getLittleContent());

@@ -1,0 +1,61 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jzl.remotecraft.sensor.ui.fragment.sensor.SensorRealFragment"
+    android:background="@color/design_textinput_error_color_dark">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="#3838ad">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="300dp"
+            android:layout_height="20dp"
+            android:id="@+id/progressBar2"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="40dp"
+            android:background="@color/accent_material_dark"
+            android:backgroundTint="@color/abc_search_url_text_normal"
+            android:backgroundTintMode="src_over"
+            android:clickable="false"
+            android:indeterminate="false"
+            android:indeterminateTint="#853434" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="已完成:2/4组"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="10"
+        android:id="@+id/textView2"
+        android:layout_gravity="center"
+        android:background="@android:drawable/ic_lock_power_off"
+        android:textSize="150dp"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@color/accent_material_dark"></LinearLayout>
+
+</FrameLayout>

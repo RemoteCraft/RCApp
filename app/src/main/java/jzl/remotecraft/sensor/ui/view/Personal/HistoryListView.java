@@ -2,7 +2,7 @@ package jzl.remotecraft.sensor.ui.view.personal;
 
 import java.util.List;
 
-import jzl.remotecraft.sensor.model.entity.PersonalHistoryList;
+import jzl.remotecraft.sensor.model.entity.PersonalHistoryListItem;
 import jzl.remotecraft.sensor.ui.view.BaseView;
 
 /**
@@ -10,6 +10,6 @@ import jzl.remotecraft.sensor.ui.view.BaseView;
  */
 public interface HistoryListView extends BaseView {
 
-    public void refresh(List<PersonalHistoryList> data);
-    public void loadMore(List<PersonalHistoryList> data);
+    public void refresh(List<PersonalHistoryListItem> data);
+    public void loadMore(List<PersonalHistoryListItem> data);
 }

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activity.SensorActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,7 +22,8 @@
         <service
             android:name=".service.MainService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
     </application>
 
 </manifest>

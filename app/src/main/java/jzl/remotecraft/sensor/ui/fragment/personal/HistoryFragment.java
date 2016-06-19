@@ -2,12 +2,8 @@ package jzl.remotecraft.sensor.ui.fragment.personal;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import jzl.remotecraft.sensor.R;
-import jzl.remotecraft.sensor.model.entity.PersonalHistoryList;
+import jzl.remotecraft.sensor.model.entity.PersonalHistoryListItem;
 import jzl.remotecraft.sensor.ui.adapter.PersonalHistoryListAdapter;
 import jzl.remotecraft.sensor.ui.fragment.BaseFragment;
-import jzl.remotecraft.sensor.ui.fragment.personal.dummy.DummyContent;
-import jzl.remotecraft.sensor.ui.fragment.personal.dummy.DummyContent.DummyItem;
 import jzl.remotecraft.sensor.ui.presenter.personal.HistoryPresenter;
 import jzl.remotecraft.sensor.ui.view.personal.HistoryListView;
 import jzl.remotecraft.sensor.util.common.Common;
@@ -33,7 +27,6 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
 public class HistoryFragment extends BaseFragment implements HistoryListView{
@@ -42,13 +35,11 @@ public class HistoryFragment extends BaseFragment implements HistoryListView{
     private SwipeRefreshLayout history_swiperefresh = null;
     private HaoRecyclerView history_recycleview = null;
 
-
-    private OnListFragmentInteractionListener mListener;
     public String TITLE = "MyHistory";
 
     private HistoryPresenter historyPresenter;
     private PersonalHistoryListAdapter historyListAdapter;
-    private ArrayList<PersonalHistoryList> listData = new ArrayList<>();
+    private ArrayList<PersonalHistoryListItem> listData = new ArrayList<>();
     private int page = 1;
 
 
@@ -108,6 +99,8 @@ public class HistoryFragment extends BaseFragment implements HistoryListView{
         historyPresenter.loadList(page);
         showLoading("加载中...");
     }
+    protected View getLoadingTargetView(){return history_swiperefresh;}
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,7 +121,7 @@ public class HistoryFragment extends BaseFragment implements HistoryListView{
     }
 
     @Override
-    public void refresh(List<PersonalHistoryList> data) {
+    public void refresh(List<PersonalHistoryListItem> data) {
 //        hideLoading();
         //注意此处
         history_recycleview.refreshComplete();
@@ -146,7 +139,7 @@ public class HistoryFragment extends BaseFragment implements HistoryListView{
     }
 
     @Override
-    public void loadMore(List<PersonalHistoryList> data) {
+    public void loadMore(List<PersonalHistoryListItem> data) {
 
         if (Common.isEmpty(data)) {
             history_recycleview.loadMoreEnd();
@@ -160,18 +153,11 @@ public class HistoryFragment extends BaseFragment implements HistoryListView{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
 }
